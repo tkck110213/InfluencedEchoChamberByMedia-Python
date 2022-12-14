@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import statistics as st
-import analytics as al
+from model import analytics as al
 
 
 class User_Agent:

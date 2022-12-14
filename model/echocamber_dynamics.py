@@ -1,10 +1,10 @@
-import agent
-import social_media
-from const import Const
+from model import agent
+from model import social_media
+from model.const  import Const
 from tqdm import tqdm
 import random
 import numpy as np
-import export as ex
+from model import export as ex
 import datetime
 
 
@@ -67,14 +67,14 @@ class EchoChamber:
     
 
 
-def main(follow_method, opinion_ranges, confidence, media_follower):
+def experiment(follow_method, opinion_ranges, confidence, media_follower):
     const = Const(follow_method, opinion_ranges, confidence, media_follower)
     all_agents_mean_diversity = []
     random.seed(124)
     
 
     date = datetime.datetime.now()
-    root_path = "../result/{}/".format(date.strftime('%Y;%m;%d-%H;%M'))
+    root_path = "./result/{}/".format(date.strftime('%Y;%m;%d-%H;%M'))
 
     for n in tqdm(range(const.max_n)):
         ec = EchoChamber(const)
@@ -93,8 +93,7 @@ def main(follow_method, opinion_ranges, confidence, media_follower):
     save_csv_path = root_path + "data/{}_{}_c{}_mf{}_amean_diversity.csv".format(n, const.follow_method, const.confidence, const.media_follower)
     ex.save_csv(np.mean(all_agents_mean_diversity, axis=0), save_csv_path)
 
-opinion_ranges = [[-1.0, -0.8], [-0.1, 0.1], [0.8, 1.0], [-1.0, -0.8], [-0.1, 0.1], [0.8, 1.0]]
-main("random", opinion_ranges, 0.6, 15)
+
     
 
     
